@@ -35,17 +35,21 @@ class PlacesListScreen extends StatelessWidget {
                         ? ch
                         : ListView.builder(
                             itemCount: greatPlaces.items.length,
-                            itemBuilder: (ctx, i) => ListTile(
+                            itemBuilder: (ctx, i) {
+                             print('log-${greatPlaces.items[i].location}');
+                              return ListTile(
                               leading: CircleAvatar(
                                 backgroundImage: FileImage(
                                   greatPlaces.items[i].image,
                                 ),
                               ),
                               title: Text(greatPlaces.items[i].title),
+                            subtitle: Text(greatPlaces.items[i].location.address),
                               onTap: () {
                                 //go to detail page ....
                               },
-                            ),
+                            );
+                            },
                           ),
               ),
       ),
