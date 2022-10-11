@@ -17,3 +17,4 @@ class LocationHelper {
     return json.decode(response.body)['results'][0]['formatted_address'];
   }
 }
+ 

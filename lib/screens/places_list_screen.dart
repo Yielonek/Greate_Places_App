@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './add_place_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/great_places.dart';
+import 'place_detail_screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   @override
@@ -30,25 +31,30 @@ class PlacesListScreen extends StatelessWidget {
                 child: Center(
                   child: const Text('Got no places yet, start adding some!'),
                 ),
-                builder: (context, greatPlaces, ch) =>
+                builder: (context, greatPlaces, childPlaceHolder) =>
                     greatPlaces.items.length <= 0
-                        ? ch
+                        ? childPlaceHolder
                         : ListView.builder(
                             itemCount: greatPlaces.items.length,
                             itemBuilder: (ctx, i) {
-                             print('log-${greatPlaces.items[i].location}');
+                              print('log-${greatPlaces.items[i].location}');
                               return ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: FileImage(
-                                  greatPlaces.items[i].image,
+                                leading: CircleAvatar(
+                                  backgroundImage: FileImage(
+                                    greatPlaces.items[i].image,
+                                  ),
                                 ),
-                              ),
-                              title: Text(greatPlaces.items[i].title),
-                            subtitle: Text(greatPlaces.items[i].location.address),
-                              onTap: () {
-                                //go to detail page ....
-                              },
-                            );
+                                title: Text(greatPlaces.items[i].title),
+                                subtitle:
+                                    Text(greatPlaces.items[i].location.address),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    PlaceDetailScreen.routeName,
+                                    arguments: greatPlaces.items[i].id,
+                                  );
+                                  //go to detail page ....
+                                },
+                              );
                             },
                           ),
               ),
